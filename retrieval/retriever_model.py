@@ -50,7 +50,7 @@ class Retriever(nn.Module):
                  use_early_stop=True,
                  ):
         super().__init__()
-        self.encoder = encoder_class.from_pretrained(model_name, config=config)
+        self.encoder = encoder_class.from_pretrained(model_name, config=config, trust_remote_code=True)
         self.config = config
         self.max_seq_len = max_seq_len
         self.mean_passage_len = mean_passage_len # deprecated
