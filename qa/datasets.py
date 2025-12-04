@@ -106,7 +106,7 @@ class MHReaderDataset(Dataset):
             if total_len > self.max_len - 2:
                 # may truncate the answer
                 start_idx = kmp(item, answer_ids)
-                # if model max_lengths was longer, the performance would be higher
+                # if model max_length was longer, the performance would be higher
                 if not self.is_train or (start_idx == -1 or start_idx + len(answer_ids) <= avg_len):
                     item = item[:avg_len]
                 else:

@@ -80,7 +80,7 @@ def main():
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab                          
     
     bert_config = AutoConfig.from_pretrained(args.model_name)
-    bert_config.max_lengths = args.max_seq_len
+    bert_config.max_length = args.max_seq_len
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_path)
     if args.dataset_type == 'hotpot':
         # hotpot format
@@ -97,11 +97,11 @@ def main():
     if args.local_rank == 0:
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
 
-    if args.do_train and args.max_seq_len > bert_config.max_lengths:
+    if args.do_train and args.max_seq_len > bert_config.max_length:
         raise ValueError(
             "Cannot use sequence length %d because the BERT model "
             "was only trained up to sequence length %d" %
-            (args.max_seq_len, bert_config.max_lengths))
+            (args.max_seq_len, bert_config.max_length))
 
     if args.local_rank == -1 or args.local_rank == 0:
         logger.info(f"Num of dev batches: {len(eval_dataloader)}")

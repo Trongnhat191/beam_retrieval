@@ -257,7 +257,7 @@ def get_reader_qa_output(retr_pred_dic, test_raw_data, type='musique', is_dev=Tr
     max_len = 1024
     device = torch.device("cuda", 1)
     config = AutoConfig.from_pretrained(qa_model_path)
-    config.max_lengths = max_len
+    config.max_length = max_len
     tokenizer = AutoTokenizer.from_pretrained(qa_tokenizer_path)
     type = 'hotpot' if type == '2wiki' else type
     if type == 'hotpot':
